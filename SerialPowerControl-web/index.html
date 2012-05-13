@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Jakes Power Control &beta;</title>
+        <link rel="stylesheet" href="themes/css/jqtouch.css" title="jQTouch">
+
+        <!--<script src="src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>  Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
+        <script src="src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>  
+      
+        <script src="src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> 
+        <script src="src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> 
+
+        <script src="extensions/jqt.themeswitcher.min.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                icon4: 'jqtouch4.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black-translucent',
+                themeSelectionSelector: '#jqt #themes ul',
+                preloadImages: []
+            });
+
+            // Some sample Javascript functions:
+            $(function(){
+
+                $('.toggle').change(function(evt, data) {
+ 			//alert($(this).children('input').attr('checked'));
+			$id = $(this).attr('id');
+			if($(this).children('input').attr('checked') == 'checked'){
+				$.get("power.php", { p: $id} );
+			}else{
+				if($id == '1'){
+					$id = 'A';
+				}else if($id == '2'){
+					$id = 'B';
+				}else if($id == '3'){
+					$id = 'C';
+				}else if($id == '4'){
+					$id = 'D';
+				}
+				$.get("power.php", { p: $id} );
+			}
+					
+			
+                });
+                
+            });
+        </script>
+        <style type="text/css" media="screen">
+            #jqt.fullscreen #home .info {
+                display: none;
+            }
+            div#jqt #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0;
+                color: #999;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            div#jqt #about p {
+                margin-bottom: 8px;
+            }
+            div#jqt #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+            <div id="home" class="current">
+                <div class="toolbar">
+                    <h1>Jakes Room</h1>
+                </div>
+                <form class="scroll">
+                    <ul class="edit rounded">
+   
+                        <li>Room<span class="toggle " id="1"><input type="checkbox" checked="checked"/></span></li>  
+                        <li>Electonics Desk<span class="toggle"  id="2"><input type="checkbox" /></span></li> 
+                        <li>Writing Desk<span class="toggle"  id="3"><input type="checkbox" /></span></li> 
+                        <li>Screens<span class="toggle"  id="4"><input type="checkbox" /></span></li>
+                      
+                    </ul>
+                </form>
+            </div>
+            
+    </body>
+</html>
