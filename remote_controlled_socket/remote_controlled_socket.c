@@ -12,6 +12,11 @@
 #define SW3 PC1
 #define SW4 PC0
 
+#define ch1 PB1
+#define ch2 PB2
+#define ch3 PB3
+#define ch4 PB4
+#define ch5 PB5
 
 #define TRIES 2
 
@@ -39,8 +44,12 @@ void serial_init(void)
 
 void send(unsigned char sw, unsigned char channel, unsigned char on)
 {
+	DDRB = 0;
 	DDRC = 0;
 	DDRD = 0;
+
+	DDRB = 0b00111010;
+	//DDRB |= (1 << ch1) | (0 << ch2) | (0 << ch3) | (1 << ch4) | (1 << ch5);
 
 
 	DDRC |= (1 << channel) | (1 << sw);
@@ -88,6 +97,7 @@ int main(void)
 
 	PORTD = 0;
 	PORTC = 0;
+	PORTB = 0;
 
 	serial_init();
 
