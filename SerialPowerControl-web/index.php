@@ -14,6 +14,19 @@
         <script src="extensions/jqt.themeswitcher.min.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
+	function getChannel(){
+		var chan = '00';
+		$('#channel_select').children('input').each(function(){
+			if($(this).attr('checked') == 'checked'){
+				chan = chan+'1';
+			}else{
+				chan = chan+'0';	
+			}
+		});
+		chan = chan+'0';
+		return chan;
+	}
+
             var jQT = new $.jQTouch({
                 icon: 'jqtouch.png',
                 icon4: 'jqtouch4.png',
@@ -26,12 +39,15 @@
 
             // Some sample Javascript functions:
             $(function(){
-
+		$('#select_channel_toggle').click(function(){
+			$('#channel_select').toggle();
+		});
                 $('.toggle').change(function(evt, data) {
  			//alert($(this).children('input').attr('checked'));
 			$id = $(this).attr('id');
+			var c = getChannel();
 			if($(this).children('input').attr('checked') == 'checked'){
-				$.get("power.php", { p: $id} );
+				$.get("power.php", { p: $id, c:c }, function(data){console.log(data);});
 			}else{
 				if($id == '1'){
 					$id = 'A';
@@ -42,7 +58,7 @@
 				}else if($id == '4'){
 					$id = 'D';
 				}
-				$.get("power.php", { p: $id} );
+				$.get("power.php", { p: $id, c:c }, function(data){console.log(data);} );
 			}
 					
 			
@@ -87,7 +103,25 @@
                       
                     </ul>
                 </form>
+		<div style="text-align: center;">
+			<span id="select_channel_toggle" class="button"> select channel</span>
+			<div id="channel_select" style="display:none;">
+<table border="0" bordercolor="transparent" style="margin:auto; background-color:transparent" width="85px" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+	</tr>
+
+</table>
+				<input id="channel_1" type="checkbox" checked="checked"/>
+				<input id="channel_2" type="checkbox" checked="checked"/>		<input id="channel_3" type="checkbox" checked="checked"/>		<input id="channel_4" type="checkbox" />		<input id="channel_5" type="checkbox" checked="checked"/>	
+			</div>
+		</div>
             </div>
+
             
     </body>
 </html>
