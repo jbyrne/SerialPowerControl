@@ -1,4 +1,4 @@
-
+//original program created by befinitiv.wordpress.com changes made by Jake Rowan Byrne May 2012
 
 #include <avr/io.h>
 
@@ -18,11 +18,11 @@
 #define ch4 PB4
 #define ch5 PB5
 
-#define TRIES 2
+#define TRIES 1
 
 //all pins are pulled to 0 or left high-z
 
-
+unsigned char chan;
 
 
 void serial_init(void)
@@ -44,11 +44,12 @@ void serial_init(void)
 
 void send(unsigned char sw, unsigned char channel, unsigned char on)
 {
-	DDRB = 0;
+//	DDRB = 0;
 	DDRC = 0;
 	DDRD = 0;
-
-	DDRB = 0b00111010;
+//0b00111010 --4
+//	DDRB = 0b00111010;
+	DDRB = chan;
 	//DDRB |= (1 << ch1) | (0 << ch2) | (0 << ch3) | (1 << ch4) | (1 << ch5);
 
 
@@ -104,13 +105,19 @@ int main(void)
 
 	for(;;)
 	{
-		if(UCSRA & (1 << RXC))
-		{
-			char c = UDR;
-      while (!(UCSRA & (1 << UDRE))) {}; // Do nothing until UDR is ready for more data to be written to it
+   		while ((UCSRA & (1 << RXC)) == 0) {  };
+//		if(UCSRA & (1<<RXC)){
+			chan = UDR;
+	//	}
+	//	if(UCSRA & (1 << RXC))
+	//	{
+               while ((UCSRA & (1 << RXC)) == 0) {  };
 
-      UDR = c; // Echo back the received byte back to the computer
-       USARTWriteChar(c);
+			char c = UDR;
+//		      while (!(UCSRA & (1 << UDRE))) {}; // Do nothing until UDR is ready for more data to be written to it
+
+  //   			 UDR = c; // Echo back the received byte back to the computer
+    //  			 USARTWriteChar(c);
 
 			switch(c)
 			{
@@ -184,7 +191,7 @@ int main(void)
 				
 				break;
 			}
-		}			
+	//	}			
 	} 
 
 
