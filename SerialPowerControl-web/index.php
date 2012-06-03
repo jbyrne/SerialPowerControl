@@ -10,9 +10,6 @@
       
         <script src="src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> 
         <script src="src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> 
-
-        <script src="extensions/jqt.themeswitcher.min.js" type="application/x-javascript" charset="utf-8"></script>
-
         <script type="text/javascript" charset="utf-8">
 	function getChannel(){
 		var chan = '00';
@@ -42,7 +39,14 @@
 		$('#select_channel_toggle').click(function(){
 			$('#channel_select').toggle();
 		});
-                $('.toggle').change(function(evt, data) {
+		
+		$('.execute_event').click(function(){
+			$id = $(this).attr('id');
+			var c = getChannel();
+			$.get("power.php", { e: $id, c:c }, function(data){console.log(data);});
+			
+		});
+        $('.toggle_device').change(function(evt, data) {
  			//alert($(this).children('input').attr('checked'));
 			$id = $(this).attr('id');
 			var c = getChannel();
@@ -91,18 +95,29 @@
     <body>
             <div id="home" class="current">
                 <div class="toolbar">
-                    <h1>Jakes Room</h1>
+                    <h1>Jake's Room</h1>
+                </div><br>
+				<div class="toolbar">
+					<h1>Devices:</h1>
                 </div>
+				
                 <form class="scroll">
                     <ul class="edit rounded">
    
-                        <li>Room<span class="toggle " id="1"><input type="checkbox" checked="checked"/></span></li>  
-                        <li>Electonics Desk<span class="toggle"  id="2"><input type="checkbox" /></span></li> 
-                        <li>Writing Desk<span class="toggle"  id="3"><input type="checkbox" /></span></li> 
-                        <li>Screens<span class="toggle"  id="4"><input type="checkbox" /></span></li>
+                        <li>Room<span class="toggle_device toggle" id="1"><input type="checkbox" checked="checked"/></span></li>  
+                        <li>Electonics Desk<span class="toggle_device toggle"  id="2"><input type="checkbox" /></span></li> 
+                        <li>Writing Desk<span class="toggle_device toggle"  id="3"><input type="checkbox" /></span></li> 
+                        <li>Screens<span class="toggle_device toggle"  id="4"><input type="checkbox" /></span></li>
                       
                     </ul>
                 </form>
+				<div class="toolbar">
+					<h1>Events:</h1>
+                </div>
+				<a href="#" class="execute_event grayButton" style="" id="home">Home</a>
+				<a href="#" class="execute_event grayButton" style="" id="leave">Leave</a>
+				<a href="#" class="execute_event grayButton" style="" id="leave">Sleep</a>
+				
 		<div style="text-align: center;">
 			<span id="select_channel_toggle" class="button"> select channel</span>
 			<div id="channel_select" style="display:none;">
