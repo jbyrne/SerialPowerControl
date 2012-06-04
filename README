@@ -4,7 +4,8 @@ see here for full tutorial:
 http://www.jakebyrne.com/adding-web-connectivity-via-usb-to-remote-controlled-sockets-part-1-hardware/
 
 ---------------------------------------------------------------------------------
-below are the mappings between the remote contol buttons and the  characters sent to teh Atmega8
+below are the mappings between the remote contol buttons and the characters sent to the Atmega8
+---------------------------------------------------------------------------------
 binary		On Char		Off Char
 remote	
 ABCD	
