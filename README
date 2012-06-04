@@ -1,1 +1,26 @@
-Serial Power Control v0.1
+Serial Power Control v0.2
+
+see here for full tutorial:
+http://www.jakebyrne.com/adding-web-connectivity-via-usb-to-remote-controlled-sockets-part-1-hardware/
+
+---------------------------------------------------------------------------------
+below are the mappings between the remote contol buttons and the  characters sent to teh Atmega8
+binary		On Char		Off Char
+remote	
+ABCD	
+
+0001		1			A
+0010		2			B
+0100		3			C
+1000		4			D
+0011		5			E
+0110		6			F
+1100		7			G
+0111		8			H
+1110		9			I
+1111		10			J
+1010		11			K
+0101		12			L
+1001		13			M
+1101		14			N
+1011		15			O
