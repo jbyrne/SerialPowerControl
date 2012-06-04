@@ -5,24 +5,22 @@
         <title>Jakes Power Control &beta;</title>
         <link rel="stylesheet" href="themes/css/jqtouch.css" title="jQTouch">
 
-        <!--<script src="src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>  Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
         <script src="src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>  
-      
         <script src="src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> 
         <script src="src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> 
         <script type="text/javascript" charset="utf-8">
-	function getChannel(){
-		var chan = '00';
-		$('#channel_select').children('input').each(function(){
-			if($(this).attr('checked') == 'checked'){
-				chan = chan+'1';
-			}else{
-				chan = chan+'0';	
+			function getChannel(){
+				var chan = '00';
+				$('#channel_select').children('input').each(function(){
+					if($(this).attr('checked') == 'checked'){
+						chan = chan+'1';
+					}else{
+						chan = chan+'0';	
+					}
+				});
+				chan = chan+'0';
+				return chan;
 			}
-		});
-		chan = chan+'0';
-		return chan;
-	}
 
             var jQT = new $.jQTouch({
                 icon: 'jqtouch.png',
@@ -34,40 +32,27 @@
                 preloadImages: []
             });
 
-            // Some sample Javascript functions:
             $(function(){
-		$('#select_channel_toggle').click(function(){
-			$('#channel_select').toggle();
-		});
-		
-		$('.execute_event').click(function(){
-			$id = $(this).attr('id');
-			var c = getChannel();
-			$.get("power.php", { e: $id, c:c }, function(data){console.log(data);});
-			
-		});
-        $('.toggle_device').change(function(evt, data) {
- 			//alert($(this).children('input').attr('checked'));
-			$id = $(this).attr('id');
-			var c = getChannel();
-			if($(this).children('input').attr('checked') == 'checked'){
-				$.get("power.php", { p: $id, c:c }, function(data){console.log(data);});
-			}else{
-				if($id == '1'){
-					$id = 'A';
-				}else if($id == '2'){
-					$id = 'B';
-				}else if($id == '3'){
-					$id = 'C';
-				}else if($id == '4'){
-					$id = 'D';
-				}
-				$.get("power.php", { p: $id, c:c }, function(data){console.log(data);} );
-			}
-					
-			
-                });
-                
+				$('#select_channel_toggle').click(function(){
+					$('#channel_select').toggle();
+				});
+				
+				$('.execute_event').click(function(){
+					$id = $(this).attr('id');
+					var c = getChannel();
+					$.get("power.php", { e: $id, c:c }, function(data){console.log(data);});				
+				});
+				$('.toggle_device').change(function(evt, data) {
+					$id = $(this).attr('id');
+					var c = getChannel();
+					if($(this).children('input').attr('checked') == 'checked'){
+						$.get("power.php", { p: $id, c:c }, function(data){console.log(data);});
+					}else{
+						var ascii = 64 + parseInt($id); //converts number to letter
+						$id = String.fromCharCode(ascii);
+						$.get("power.php", { p: $id, c:c }, function(data){console.log(data);} );
+					}										
+                });              
             });
         </script>
         <style type="text/css" media="screen">
@@ -108,6 +93,7 @@
                         <li>Electonics Desk<span class="toggle_device toggle"  id="2"><input type="checkbox" /></span></li> 
                         <li>Writing Desk<span class="toggle_device toggle"  id="3"><input type="checkbox" /></span></li> 
                         <li>Screens<span class="toggle_device toggle"  id="4"><input type="checkbox" /></span></li>
+                        <li>Bed Light<span class="toggle_device toggle"  id="5"><input type="checkbox" /></span></li>
                       
                     </ul>
                 </form>

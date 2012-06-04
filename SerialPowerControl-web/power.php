@@ -4,6 +4,7 @@
 	$chan = '0x'.$chan;
 	$chan = chr($chan);
 	shell_exec('stty -F /dev/ttyUSB0 19200');
+	usleep(20000);
 ?>
 <html>
 <head>
@@ -20,25 +21,41 @@
 		<?php
 			if(isset($_GET['p'])){
 			  shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+			  usleep(70000);
 			  shell_exec("echo -n ".$_GET['p']." > /dev/ttyUSB0");
 			}else if(isset($_GET['e'])){
 				if($_GET['e']== 'home'){
 						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(70000);
 						shell_exec("echo -n 1 > /dev/ttyUSB0");
+						usleep(200000);
 						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(70000);
 						shell_exec("echo -n 4 > /dev/ttyUSB0");
 						
 						echo 'Home Power Profile <br>';
 					
 				}else if($_GET['e']== 'leave'){
-						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");
+						usleep(70000);						
 						shell_exec("echo -n A > /dev/ttyUSB0");
-						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(200000);
+						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");
+						usleep(70000);						
 						shell_exec("echo -n B > /dev/ttyUSB0");
+						usleep(200000);
 						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(70000);
 						shell_exec("echo -n C > /dev/ttyUSB0");
+						usleep(200000);
 						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(70000);
 						shell_exec("echo -n D > /dev/ttyUSB0");
+ 						usleep(200000);
+						shell_exec("echo -n ".$chan." > /dev/ttyUSB0");	
+						usleep(70000);
+						shell_exec("echo -n E > /dev/ttyUSB0"); 
+	
 						
 						echo 'Leaving Power Profile <br>';
 				}
